@@ -80,7 +80,9 @@ a:visited, a{
    
     color: #333333;
 }
-/*carrito*/
+/*===========================================================================================================
+carrito
+============================================================================================================*/
 .header-carrito a:hover , .navegacion:hover{
     color: #c4c4c4;
     
@@ -102,7 +104,7 @@ a:visited, a{
     justify-content: center;
     margin-top: 30px;
 }
-
+/*cada vez que pasamos el cursor arriba del carrito se va a mostrar todos los productos que fueron agregados al carrito */
 .header-carrito a:hover .contenedor-carrito{
     display: flex;
     justify-content: center;
@@ -166,16 +168,18 @@ a:visited, a{
     padding: 50px;
     margin:  auto;
 }
-/*tarjetas productos*/
+/*===========================================================================================================
+tarjetas productos
+============================================================================================================*/
+/**/
 .card-producto{
     display: flex;
     height: 300px;
     width: 200px;
     flex-direction: column;
     align-items: center;
-    border: 2px solid ;
+    border: 1px solid ;
     border-radius: 5px;
-   
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 #contenedorProducto{

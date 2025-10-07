@@ -11,6 +11,7 @@ let contenedorProducto= document.querySelector("#contenedorProducto");
 let barraBusqueda = document.querySelector("#barraBusqueda");
 let contenedorCarrito= document.querySelector("#carrito");
 let carrito =[];
+// Mostramos los productos que se encutra en le array
 function mostrarProductos(array){
     let cartaProducto= "";
     array.forEach(element => {
@@ -23,15 +24,19 @@ function mostrarProductos(array){
     });
     contenedorProducto.innerHTML = cartaProducto;
 }
+// Inicializamo el mostrar productos y mostrar carrito
 function init(){
+    // tenemos que leer el almacenamiento local antes de mostrarCarrito(), sino  entra al else de mostrar carrito y me borra la memoria
+    cargarCarrito();
     mostrarProductos(productos);
     mostrarCarrito();
 }
-// usar antes el cargar carrito porq que sino ingresa al init  y entra el else de mostrar carrito y me borra la memoria
-cargarCarrito();
-init();
 
+
+init();
+//cada vez que vaya presionando una tecla se va a ejecutar el addEventListener
 barraBusqueda.addEventListener("keyup",filtrarPorducto)
+// Filtramos los productos que tiene el string de la barra de busqueda incluido en el nombre del producto
 function filtrarPorducto()
 {
     let lectura = barraBusqueda.value;
@@ -39,13 +44,14 @@ function filtrarPorducto()
     mostrarProductos(array);
     
 }
-
+// Al momento de presionar agregar carrito buscamos el producto por su id y hacemos un push al carrito con el producto
 function agregarACarrito(id){
     carrito.push(productos.find(valor => valor.id == id))
    mostrarCarrito();
    
 
 }
+// Muestra el carrito actualizado. Si el array carrito esta vacio lo borra de la memoria y muestra un mensaje
 function mostrarCarrito(){
     let cartaCarrito = "";
     if(carrito.length>0)
@@ -64,22 +70,27 @@ function mostrarCarrito(){
     }
     else{
         borrarMemoria();
-        cartaCarrito+=`<h4 class= "vacio">Agregue un elemento al carrito</h4>`
+        cartaCarrito+=`<h4 class= "vacio">Agregue un producto al carrito</h4>`
     }
     
     contenedorCarrito.innerHTML= cartaCarrito;
 }
 
+
+
+
+// Si presiona  "vaciar carrito"  inicializa el array a vacio y actualiza el carrito
 function vaciarCarrito(){
     carrito= [];
-    contenedorCarrito.innerHTML= `<h4 class= "vacio">Agregue un elemento al carrito</h4>`;
-    borrarMemoria();
+    mostrarCarrito();
 }
+// si presiona "eliminar" busca el indice del producto y lo elimina. luego actualiza carrito
 function eliminarCarrito(indice)
 {
     carrito.splice(indice,1);
     mostrarCarrito();
 }
+// guarda  el carrito al almacenamiento local 
 function guardarCarritoLocalStorage()
 {
     if(carrito.length > 0){
@@ -88,11 +99,13 @@ function guardarCarritoLocalStorage()
          borrarMemoria();
     }
 }
+// borra el almacenamiento local si el carrito esta vacio 
 function borrarMemoria(){
     if(carrito.length== 0){
         localStorage.removeItem("carrito");
     }
 }
+// lee key("carrito") que esta en JSON  parsea para recuperar el array de objeto de carrito
 function cargarCarrito(){
     
     if(localStorage.getItem("carrito") != null){
